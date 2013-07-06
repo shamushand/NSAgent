@@ -1,21 +1,9 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\GHNB.cs">
-    <Files>
-      <File FileName="Assets\Scripts\GHNB.cs" Line="15" Column="36" />
-      <File FileName="Assets\Scripts\Menu.cs" Line="20" Column="37" />
-    </Files>
+  <MonoDevelop.Ide.Workbench>
     <Pads>
       <Pad Id="ProjectPad">
-        <State expanded="True">
-          <Node name="Assembly-CSharp" expanded="True">
-            <Node name="Assets" expanded="True">
-              <Node name="Scripts" expanded="True">
-                <Node name="GHNB.cs" selected="True" />
-              </Node>
-            </Node>
-          </Node>
-        </State>
+        <State expanded="True" />
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>

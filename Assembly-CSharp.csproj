@@ -46,6 +46,11 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\GHNB.cs" />
      <Compile Include="Assets\Scripts\Menu.cs" />
+     <None Include="Assets\Plugins\LeanTween-ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Assembly-UnityScript-firstpass.unityproj">
+      <Project>{7F45148C-FE81-03C1-E4F8-10F28D4E930F}</Project>      <Name>Assembly-UnityScript-firstpass</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
