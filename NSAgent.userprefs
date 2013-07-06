@@ -1,9 +1,10 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Menu.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Game.cs">
     <Files>
-      <File FileName="Assets\Scripts\Menu.cs" Line="33" Column="14" />
-      <File FileName="Assets\Scripts\GHNB.cs" Line="24" Column="69" />
+      <File FileName="Assets\Scripts\Game.cs" Line="77" Column="93" />
+      <File FileName="Assets\Scripts\Menu.cs" Line="109" Column="4" />
+      <File FileName="Assets\Scripts\GHNB.cs" Line="22" Column="21" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -11,7 +12,7 @@
           <Node name="Assembly-CSharp" expanded="True">
             <Node name="Assets" expanded="True">
               <Node name="Scripts" expanded="True">
-                <Node name="Menu.cs" selected="True" />
+                <Node name="Game.cs" selected="True" />
               </Node>
             </Node>
           </Node>

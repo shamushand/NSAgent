@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\GHNB.cs" />
+     <Compile Include="Assets\Scripts\Game.cs" />
      <Compile Include="Assets\Scripts\Menu.cs" />
      <None Include="Assets\Plugins\LeanTween-ReadMe.txt" />
   </ItemGroup>

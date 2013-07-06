@@ -5,27 +5,36 @@ public class Menu : MonoBehaviour
 {
 	float xScale = 16;			// How many units the width of the screen is divided into.
 	float yScale = 24;			// How many units the height of the screen is divided into.
-	float titleScale = 5.75f;	// Coefficient of screen width to title font size.
-	float subtitleScale = 10f;	// Coefficient of screen width to subtitle font size.
+	float titleScale = 5.75f;	// Coefficient of title font size to screen width.
+	float subtitleScale = 10f;	// Coefficient of subtitle font size to screen width.
+	int menuScale = 8;			// Coefficient of menu font size to screen width.
 	
 	float buttonOffset;
 	float buttonWidth;
 	float buttonHeight;
 	
-	float button1Top;
-	float button2Top;
-	float button3Top;
-	float button4Top;
-	
 	string button1Text;
-	string button2Text;
-	string button3Text;
-	string button4Text;
+	float button1Top;
+	Rect button1;
 	
-	float backgroundBoxOffset;
-	float backgroundBoxTop;
-	float backgroundBoxWidth;
-	float backgroundBoxHeight;
+	string button2Text;
+	float button2Top;
+	Rect button2;
+	
+	string button3Text;
+	float button3Top;
+	Rect button3;
+	
+	string button4Text;
+	float button4Top;
+	Rect button4;
+	
+	string backgroundText;
+	float backgroundOffset;
+	float backgroundTop;
+	float backgroundWidth;
+	float backgroundHeight;
+	Rect background;
 	
 	public Font munro;
 	
@@ -33,12 +42,20 @@ public class Menu : MonoBehaviour
 	void Start()
 	{
 		// Title text
+		float titleHeight = 1 - (3 / yScale);
+		float subtitleHeight = 1 - (4.5f / yScale);
+		
+		// Main title
 		GameObject title = GameObject.Find("Title");
-		GameObject subtitle = GameObject.Find ("Subtitle");
-		title.GetComponent<GUIText>().transform.position = new Vector3(0.5f, 1 - (3 / yScale), 0);
+		title.GetComponent<GUIText>().transform.position = new Vector3(0.5f, titleHeight, 0);
 		title.GetComponent<GUIText>().guiText.fontSize = (int) Mathf.Floor(Screen.width / titleScale);
-		subtitle.GetComponent<GUIText>().transform.position = new Vector3(0.5f, 1 - (4.5f / yScale), 0);
+		title.GetComponent<GUIText>().guiText.text = "NSAgent";
+		
+		// Subtitle
+		GameObject subtitle = GameObject.Find ("Subtitle");
+		subtitle.GetComponent<GUIText>().transform.position = new Vector3(0.5f, subtitleHeight, 0);
 		subtitle.GetComponent<GUIText>().guiText.fontSize = (int) Mathf.Floor(Screen.width / subtitleScale);
+		subtitle.GetComponent<GUIText>().guiText.text = "American Defender";
 		
 		// Menu buttons	
 		buttonOffset = 2f * Screen.width / xScale;
@@ -48,53 +65,59 @@ public class Menu : MonoBehaviour
 		// Button 1 - Play
 		button1Top  = 9f * Screen.height / yScale;
 		button1Text = "Play";
+		button1 = new Rect(buttonOffset, button1Top, buttonWidth, buttonHeight);
 		
 		// Button 2 - Word Bank
 		button2Top  = 12.5f * Screen.height / yScale; 
 		button2Text = "Word Bank";
+		button2 = new Rect(buttonOffset, button2Top, buttonWidth, buttonHeight);
 		
 		// Button 3 - Settings
 		button3Top  = 16f * Screen.height / yScale;
 		button3Text = "Settings";
+		button3 = new Rect(buttonOffset, button3Top, buttonWidth, buttonHeight);
 		
 		// Button 4 - Credits
 		button4Top  = 19.5f * Screen.height / yScale;
 		button4Text = "Credits";
+		button4 = new Rect(buttonOffset, button4Top, buttonWidth, buttonHeight);
 		
 		// Background box
-		backgroundBoxOffset = Screen.width / xScale;
-		backgroundBoxTop = 8f * Screen.height / yScale;
-		backgroundBoxWidth = 14f * Screen.width / xScale;
-		backgroundBoxHeight = 15f * Screen.height / yScale;
+		backgroundOffset = Screen.width / xScale;
+		backgroundTop = 8f * Screen.height / yScale;
+		backgroundWidth = 14f * Screen.width / xScale;
+		backgroundHeight = 15f * Screen.height / yScale;
+		backgroundText = "";
+		background = new Rect(backgroundOffset, backgroundTop, backgroundWidth, backgroundHeight);
 	}
 	
 	// Called for rendering and handling GUI events.
-	void OnGUI () 
+	void OnGUI() 
 	{
 		// Background box
-		GUI.Box(new Rect(backgroundBoxOffset, backgroundBoxTop, backgroundBoxWidth, backgroundBoxHeight), "");
+		GUI.Box(background, backgroundText);
 				
 		// Menu buttons
 		// http://answers.unity3d.com/questions/344493/change-font-size-through-script.html
 		GUIStyle scaled = new GUIStyle(GUI.skin.button);
-		scaled.fontSize = Screen.width / 8;
+		scaled.fontSize = Screen.width / menuScale;
 		scaled.font = munro;
 		
-		if (GUI.Button(new Rect(buttonOffset, button1Top, buttonWidth, buttonHeight), button1Text, scaled)) 
+		if (GUI.Button(button1, button1Text, scaled)) 
 		{
-			Application.LoadLevel("Intro");
+			Application.LoadLevel("Game");
 		}
-		if (GUI.Button(new Rect(buttonOffset, button2Top, buttonWidth, buttonHeight), button2Text, scaled)) 
+		if (GUI.Button(button2, button2Text, scaled)) 
 		{
-			Application.LoadLevel("Main Menu");
+			Application.LoadLevel("Word Bank");
 		}	
-		if (GUI.Button(new Rect(buttonOffset, button3Top, buttonWidth, buttonHeight), button3Text, scaled)) 
+		if (GUI.Button(button3, button3Text, scaled)) 
 		{
 			Application.LoadLevel("Main Menu");
 		}
-		if (GUI.Button(new Rect(buttonOffset, button4Top, buttonWidth, buttonHeight), button4Text, scaled)) 
+		if (GUI.Button(button4, button4Text, scaled)) 
 		{
-			Application.LoadLevel("Main Menu");
+			Application.LoadLevel("Credits");
 		}	
 	}
 }
