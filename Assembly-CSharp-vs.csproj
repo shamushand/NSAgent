@@ -47,6 +47,7 @@
      <Compile Include="Assets\Scripts\GHNB.cs" />
      <Compile Include="Assets\Scripts\Game.cs" />
      <Compile Include="Assets\Scripts\Menu.cs" />
+     <Compile Include="Assets\Scripts\ScaleUI.cs" />
      <None Include="Assets\Plugins\LeanTween-ReadMe.txt" />
  <Reference Include="Assembly-UnityScript-firstpass">
  <HintPath>Library\ScriptAssemblies\Assembly-UnityScript-firstpass.dll</HintPath>
