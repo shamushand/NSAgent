@@ -7,7 +7,7 @@ public class Menu : MonoBehaviour
 	float yScale = 24;			// How many units the height of the screen is divided into.
 	float titleScale = 5.75f;	// Coefficient of title font size to screen width.
 	float subtitleScale = 10f;	// Coefficient of subtitle font size to screen width.
-	int menuScale = 8;			// Coefficient of menu font size to screen width.
+	int menuScale = 10;			// Coefficient of menu font size to screen width.
 	
 	public Font munro;
 	

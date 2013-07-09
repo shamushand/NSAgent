@@ -11,10 +11,7 @@ public class ScaleUI : MonoBehaviour
 	static float width;			// Width of the GUI object.
 	static float height;		// Height of the GUI object.
 	
-	
-	///////////////
-	// Main Menu //
-	///////////////
+	// Main Menu
 	
 	/// <summary>
 	/// First button in the main menu.
@@ -76,9 +73,7 @@ public class ScaleUI : MonoBehaviour
 		return new Rect(offsetX, offsetY, width, height);
 	}	
 	
-	/////////////
-	// Game UI //
-	/////////////
+	// Game UI
 	
 	/// <summary>
 	/// The Score label in the game UI.
@@ -97,7 +92,7 @@ public class ScaleUI : MonoBehaviour
 	/// </summary>	
 	public static Rect Time()
 	{
-		offsetX = 10 * Screen.width / xScale;
+		offsetX = 10f * Screen.width / xScale;
 		offsetY = Screen.height / (4 * yScale);
 		width = 5f * Screen.width / xScale;
 		height = Screen.height / yScale;
@@ -134,9 +129,9 @@ public class ScaleUI : MonoBehaviour
 	public static Rect PauseButton1()
 	{
 		offsetX = 2f * Screen.width / xScale;
-		offsetY  = 9f * Screen.height / yScale;
+		offsetY  = 8f * Screen.height / yScale;
 		width = 12f * Screen.width / xScale;
-		height = 2.5f * Screen.height / yScale;
+		height = 3f * Screen.height / yScale;
 		return new Rect(offsetX, offsetY, width, height);
 	}
 	
@@ -146,9 +141,9 @@ public class ScaleUI : MonoBehaviour
 	public static Rect PauseButton2()
 	{
 		offsetX = 2f * Screen.width / xScale;
-		offsetY  = 12.5f * Screen.height / yScale;
+		offsetY  = 13.5f * Screen.height / yScale;
 		width = 12f * Screen.width / xScale;
-		height = 2.5f * Screen.height / yScale;
+		height = 3f * Screen.height / yScale;
 		return new Rect(offsetX, offsetY, width, height);
 	}
 
