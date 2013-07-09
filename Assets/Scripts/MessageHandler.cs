@@ -5,9 +5,9 @@ public class MessageHandler
 {
 	private string[][] words;
 	private string[] messages;
-
-	public int messageNum = 1;
 	
+	public int messageNum = 1;
+
 	// Fetches the next message.
 	public ArrayList NextMessage(TextAsset messageList)
 	{
@@ -62,26 +62,21 @@ public class MessageHandler
 	ArrayList ButtonFactory(string[] message)
 	{
 		// Initialize a 2D array of buttons.
-		//Rect[] buttonArray = new Rect[30];
-		int totalButtons = 0;
 		ArrayList buttons = new ArrayList();
+		string[][] wrapped = WordWrap(message);
 		
-		string[][] wordWrapped = WordWrap(message);
-		for (int i = 0; i < wordWrapped.Length; i++) 
+		for (int line = 0; line < wrapped.Length; line++) 
 		{
-			int currentChar = 0;
-			for (int j = 0; j < wordWrapped.Length; j++)
+			int position = 0;
+			for (int word = 0; word < wrapped.Length; word++)
 			{
-				if (wordWrapped[i][j] != null)
+				if (wrapped[line][word] != null)
 				{
-					object[] temp = new object[2];
-					temp[0] = ScaleUI.MakeButton(i, currentChar, wordWrapped[i][j].Length + 1);
-					temp[1] = wordWrapped[i][j];
-					buttons.Add(temp);
-					//buttonArray[totalButtons] = ScaleUI.MakeButton(i, currentChar, wordWrapped[i][j].Length + 1);
-					currentChar += wordWrapped[i][j].Length + 1;
-					totalButtons++;
+					buttons.Add(new Word(wrapped[line][word], line, position));
+					position += wrapped[line][word].Length + 1;
 				}
+				else
+					break;
 			}
 		}
 				

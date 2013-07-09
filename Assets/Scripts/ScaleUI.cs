@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class ScaleUI : MonoBehaviour 
+public class ScaleUI
 {
 	static float xScale = 16;	// Number of units the width of the screen is divided into.
 	static float yScale = 24;	// Number of units the height of the screen is divided into.
@@ -159,7 +159,7 @@ public class ScaleUI : MonoBehaviour
 		offsetX = start + character * size / 24;
 		offsetY = (4 + 1.5f * line) * Screen.height / yScale;
 		width = length * size / 24;
-		height = 2.5f * Screen.height / yScale;
+		height = 1.45f * Screen.height / yScale;
 		
 		return new Rect(offsetX, offsetY, width, height);
 	}

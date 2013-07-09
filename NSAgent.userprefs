@@ -1,12 +1,11 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\GHNB.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\MessageHandler.cs">
     <Files>
-      <File FileName="Assets\Scripts\ScaleUI.cs" Line="163" Column="3" />
-      <File FileName="Assets\Scripts\Game.cs" Line="64" Column="52" />
-      <File FileName="Assets\Scripts\MessageHandler.cs" Line="9" Column="27" />
-      <File FileName="Assets\Scripts\Menu.cs" Line="6" Column="4" />
-      <File FileName="Assets\Scripts\GHNB.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Game.cs" Line="100" Column="9" />
+      <File FileName="Assets\Scripts\MessageHandler.cs" Line="15" Column="1" />
+      <File FileName="Assets\Scripts\ScaleUI.cs" Line="4" Column="21" />
+      <File FileName="Assets\Scripts\Word.cs" Line="29" Column="4" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -14,7 +13,7 @@
           <Node name="Assembly-CSharp" expanded="True">
             <Node name="Assets" expanded="True">
               <Node name="Scripts" expanded="True">
-                <Node name="GHNB.cs" selected="True" />
+                <Node name="MessageHandler.cs" selected="True" />
               </Node>
             </Node>
           </Node>

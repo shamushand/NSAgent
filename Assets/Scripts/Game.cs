@@ -8,64 +8,76 @@ public class Game : MonoBehaviour
 	
 	int menuScale = 20;			// Coefficient of menu button font size to screen width. 
 	int sendScale = 5;			// Coefficient of send button font size to screen width. 
-	int score;
 	
+	int actualScore;
+	int rollingScore;
 	string scoreText;
 	string timeText;
 	
-	public Font munro;
-	public Font digitalDream;
-	public Font courier;
+	public Font font1;			// Orbitron
+	public Font font2;			// Digital Dream	
+	public Font font3;			// Courier Bold
 	
 	public TextAsset messageList;
 	
 	// Called just before any of the Update methods is called the first time.
 	void Start() 
 	{
-		score = 0;
+		actualScore = rollingScore = 0;
 	}
 	
 	// Called once per frame.
 	void Update() 
 	{
 		// TODO: Gameloop.
-		scoreText = score.ToString("0000000");
-		timeText = Time.timeSinceLevelLoad.ToString("00.0");
+		scoreText = rollingScore.ToString("000000");
+		timeText = (30 - Time.timeSinceLevelLoad).ToString("00.00");
 	}
+	
+	public GUISkin customSkin;
 	
 	// Called for rendering and handling GUI events.
 	void OnGUI()
 	{
+		GUI.skin = customSkin;
+		
 		GUIStyle menuStyle = new GUIStyle(GUI.skin.label);
 		menuStyle.fontSize =  Screen.width / menuScale;	
-		menuStyle.alignment = TextAnchor.UpperCenter;
-		menuStyle.font = munro;
+		menuStyle.alignment = TextAnchor.LowerCenter;
+		menuStyle.font = font1;
 		
 		GUIStyle scoreStyle = new GUIStyle(GUI.skin.label);
 		scoreStyle.fontSize =  Screen.width / menuScale;	
 		scoreStyle.alignment = TextAnchor.UpperLeft;
-		scoreStyle.font = digitalDream;
+		scoreStyle.font = font2;
 		
 		GUIStyle timeStyle = new GUIStyle(GUI.skin.label);
 		timeStyle.fontSize =  Screen.width / menuScale;	
 		timeStyle.alignment = TextAnchor.UpperRight;
-		timeStyle.font = digitalDream;
+		timeStyle.font = font2;
 		
-		GUIStyle sendStyle = new GUIStyle(GUI.skin.label);
+		GUIStyle sendStyle = new GUIStyle(GUI.skin.button);
 		sendStyle.fontSize =  Screen.width / sendScale;
-		sendStyle.alignment = TextAnchor.UpperCenter;
-		sendStyle.font = munro;
+		sendStyle.alignment = TextAnchor.MiddleCenter;
+		sendStyle.font = font1;
 		
 		GUIStyle gameStyle = new GUIStyle(GUI.skin.label);
 		gameStyle.fontSize =  Screen.width / 16;
-		gameStyle.font = courier;
+		gameStyle.font = font3;
 		gameStyle.wordWrap = false;
 		
 		GUIStyle pauseStyle = new GUIStyle(GUI.skin.label);
 		pauseStyle.fontSize =  Screen.width / 8;	
 		pauseStyle.alignment = TextAnchor.UpperCenter;
-		pauseStyle.font = munro;
+		pauseStyle.font = font1;
 		
+		GUI.Box(new Rect(-1.1f * Screen.width/ 16, 0, 1.1f * Screen.width, 1.5f * Screen.height / 24), "");
+		GUI.Label(ScaleUI.Score(), scoreText, scoreStyle);
+		GUI.Label(ScaleUI.Time(), timeText, timeStyle);
+		
+		if (GUI.Button(ScaleUI.MenuButton(), "Menu", menuStyle))
+				Time.timeScale = (Time.timeScale == PAUSED) ? PLAYING : PAUSED;
+			
 		if (Time.timeScale == PAUSED)
 		{
 			GUI.Box(new Rect(0, 0, Screen.width, Screen.height), "");
@@ -82,20 +94,18 @@ public class Game : MonoBehaviour
 		}
 		else
 		{
-			if (GUI.Button(ScaleUI.MenuButton(), "Menu", menuStyle))
-				Time.timeScale = (Time.timeScale == PAUSED) ? PLAYING : PAUSED;
-			
-			GUI.Label(ScaleUI.Score(), scoreText, scoreStyle);
-			GUI.Label(ScaleUI.Time(), timeText, timeStyle);
+			if (rollingScore < actualScore)
+				rollingScore += 4;
 			
 			MessageHandler mailMan = new MessageHandler();
-			ArrayList buttons = mailMan.NextMessage(messageList);
+			ArrayList wordButtons = mailMan.NextMessage(messageList);
 			
-			foreach (object[] button in buttons)
-				GUI.Button((Rect) button[0], (string) button[1], gameStyle);
+			foreach (Word word in wordButtons)
+				if(GUI.Button(word.button, word.ToString(), gameStyle))
+					actualScore += word.Press();
 			
 			if (GUI.Button(ScaleUI.SendButton(), "Send", sendStyle))
-				score += 100;
+				actualScore += 100;
 		}
 	}
 }

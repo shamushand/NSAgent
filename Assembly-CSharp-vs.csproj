@@ -49,8 +49,9 @@
      <Compile Include="Assets\Scripts\Menu.cs" />
      <Compile Include="Assets\Scripts\MessageHandler.cs" />
      <Compile Include="Assets\Scripts\ScaleUI.cs" />
+     <Compile Include="Assets\Scripts\Word.cs" />
      <None Include="Assets\Plugins\LeanTween-ReadMe.txt" />
-     <None Include="Assets\messages.txt" />
+     <None Include="Assets\Other\messages.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
