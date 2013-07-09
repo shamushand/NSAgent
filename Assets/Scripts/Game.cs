@@ -16,7 +16,9 @@ public class Game : MonoBehaviour
 	public Font munro;
 	public Font digitalDream;
 	public Font courier;
-
+	
+	public TextAsset messageList;
+	
 	// Called just before any of the Update methods is called the first time.
 	void Start() 
 	{
@@ -42,7 +44,7 @@ public class Game : MonoBehaviour
 		GUIStyle scoreStyle = new GUIStyle(GUI.skin.label);
 		scoreStyle.fontSize =  Screen.width / menuScale;	
 		scoreStyle.alignment = TextAnchor.UpperLeft;
-		scoreStyle.font = munro;
+		scoreStyle.font = digitalDream;
 		
 		GUIStyle timeStyle = new GUIStyle(GUI.skin.label);
 		timeStyle.fontSize =  Screen.width / menuScale;	
@@ -57,6 +59,7 @@ public class Game : MonoBehaviour
 		GUIStyle gameStyle = new GUIStyle(GUI.skin.label);
 		gameStyle.fontSize =  Screen.width / 16;
 		gameStyle.font = courier;
+		gameStyle.wordWrap = false;
 		
 		GUIStyle pauseStyle = new GUIStyle(GUI.skin.label);
 		pauseStyle.fontSize =  Screen.width / 8;	
@@ -85,29 +88,11 @@ public class Game : MonoBehaviour
 			GUI.Label(ScaleUI.Score(), scoreText, scoreStyle);
 			GUI.Label(ScaleUI.Time(), timeText, timeStyle);
 			
-			GUI.Button(new Rect(Screen.width / 16, 4 * Screen.height / 24, 
-								14 * Screen.width / 16, 2.5f * Screen.height / 24), 
-								"This is the first line", gameStyle);
-				
-			GUI.Button(new Rect(Screen.width / 16, 5.5f * Screen.height / 24, 
-								14 * Screen.width / 16, 2.5f * Screen.height / 24), 
-								"This is another line.", gameStyle);
+			MessageHandler mailMan = new MessageHandler();
+			ArrayList buttons = mailMan.NextMessage(messageList);
 			
-			GUI.Button(new Rect(Screen.width / 16, 7 * Screen.height / 24, 
-								14 * Screen.width / 16, 2.5f * Screen.height / 24), 
-								"One more line... Yeah.", gameStyle);
-				
-			GUI.Button(new Rect(Screen.width / 16, 8.5f * Screen.height / 24, 
-								14 * Screen.width / 16, 2.5f * Screen.height / 24), 
-								"Each lines fits a", gameStyle);
-			
-			GUI.Button(new Rect(Screen.width / 16, 10 * Screen.height / 24, 
-								14 * Screen.width / 16, 2.5f * Screen.height / 24), 
-								"maximum of 24 letters!", gameStyle);
-			
-			GUI.Button(new Rect(Screen.width / 16, 11.5f * Screen.height / 24, 
-								14 * Screen.width / 16, 2.5f * Screen.height / 24), 
-								"OOOOOOOOOOOOOOOOOOOOOO", gameStyle);
+			foreach (object[] button in buttons)
+				GUI.Button((Rect) button[0], (string) button[1], gameStyle);
 			
 			if (GUI.Button(ScaleUI.SendButton(), "Send", sendStyle))
 				score += 100;

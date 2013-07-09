@@ -47,8 +47,10 @@
      <Compile Include="Assets\Scripts\GHNB.cs" />
      <Compile Include="Assets\Scripts\Game.cs" />
      <Compile Include="Assets\Scripts\Menu.cs" />
+     <Compile Include="Assets\Scripts\MessageHandler.cs" />
      <Compile Include="Assets\Scripts\ScaleUI.cs" />
      <None Include="Assets\Plugins\LeanTween-ReadMe.txt" />
+     <None Include="Assets\messages.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

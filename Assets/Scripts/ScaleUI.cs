@@ -146,5 +146,21 @@ public class ScaleUI : MonoBehaviour
 		height = 3f * Screen.height / yScale;
 		return new Rect(offsetX, offsetY, width, height);
 	}
-
+	
+	/// <summary>
+	/// Creates a button using information about word placement.
+	/// </summary>
+	public static Rect MakeButton(int line, int character, int length)
+	{
+		float start = Screen.width / xScale;
+		float end = 15 * Screen.width / xScale;
+		float size = end - start;
+		
+		offsetX = start + character * size / 24;
+		offsetY = (4 + 1.5f * line) * Screen.height / yScale;
+		width = length * size / 24;
+		height = 2.5f * Screen.height / yScale;
+		
+		return new Rect(offsetX, offsetY, width, height);
+	}
 }
