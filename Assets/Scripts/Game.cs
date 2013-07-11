@@ -3,85 +3,121 @@ using System.Collections;
 
 public class Game : MonoBehaviour 
 {
-	const int PLAYING = 1;		// TimeScale constant for when the game is running.
-	const int PAUSED = 0;		// TimeScale constant for when the game is paused.
+	int actualScore;			// Player's current score.
+	int rollingScore;			// Player's displayed score.
+	int combo;					// Player's current combo multiplier.
 	
-	int menuScale = 20;			// Coefficient of menu button font size to screen width. 
-	int sendScale = 5;			// Coefficient of send button font size to screen width. 
+	float gameTimer;			// Time left in session.
+	float bonusTime;			// Initial time + time earned from words.
+	float comboTimer;			// Time left in current combo.
 	
-	int actualScore;
-	int rollingScore;
-	string scoreText;
-	string timeText;
+	bool fetchMessage;			// Is the game requesting another message?
+	bool gameOver;				// Is the game over?
 	
-	public Font font1;			// Orbitron
-	public Font font2;			// Digital Dream	
-	public Font font3;			// Courier Bold
-	
-	public TextAsset messageList;
-	
+	ArrayList currentMessage;	// Game's copy of the current message.
+		
 	// Called just before any of the Update methods is called the first time.
 	void Start() 
 	{
-		actualScore = rollingScore = 0;
+		bonusTime = 15;
+		fetchMessage = true;
 	}
 	
 	// Called once per frame.
 	void Update() 
 	{
-		// TODO: Gameloop.
-		scoreText = rollingScore.ToString("000000");
-		timeText = (30 - Time.timeSinceLevelLoad).ToString("00.00");
+		// Update the time and check if the game has ended.
+		gameTimer = bonusTime - Time.timeSinceLevelLoad;
+		if (gameTimer <= 0)
+		{	
+			// TODO: Score screen.
+			gameTimer = 0;
+			gameOver = true;
+		}
+		
+		// Decrement the combo timer and check if the combo has ended.
+		comboTimer -= Time.deltaTime;
+		if (comboTimer <= 0)
+			combo = 0;
+		
+		// Check if a new message is needed.
+		if (fetchMessage)
+		{
+			currentMessage = MailMan.NextMessage();
+			fetchMessage = false;
+		}		
 	}
+	
+	const int PLAYING = 1;		// TimeScale constant for when the game is running.
+	const int PAUSED = 0;		// TimeScale constant for when the game is paused. 
+	
+	int menuScale = 20;			// Coefficient of menu button font size to screen width. 
+	int sendScale = 5;			// Coefficient of send button font size to screen width.
+	
+	public Font font1;			// Orbitron
+	public Font font2;			// Digital Dream	
+	public Font font3;			// Courier Bold
 	
 	public GUISkin customSkin;
 	
 	// Called for rendering and handling GUI events.
 	void OnGUI()
 	{
+		// Set GUI skin and initialize GUIStyles
 		GUI.skin = customSkin;
-		
-		GUIStyle menuStyle = new GUIStyle(GUI.skin.label);
-		menuStyle.fontSize =  Screen.width / menuScale;	
-		menuStyle.alignment = TextAnchor.LowerCenter;
-		menuStyle.font = font1;
-		
 		GUIStyle scoreStyle = new GUIStyle(GUI.skin.label);
-		scoreStyle.fontSize =  Screen.width / menuScale;	
-		scoreStyle.alignment = TextAnchor.UpperLeft;
-		scoreStyle.font = font2;
-		
+		GUIStyle menuStyle = new GUIStyle(GUI.skin.label);
 		GUIStyle timeStyle = new GUIStyle(GUI.skin.label);
-		timeStyle.fontSize =  Screen.width / menuScale;	
-		timeStyle.alignment = TextAnchor.UpperRight;
-		timeStyle.font = font2;
-		
-		GUIStyle sendStyle = new GUIStyle(GUI.skin.button);
-		sendStyle.fontSize =  Screen.width / sendScale;
-		sendStyle.alignment = TextAnchor.MiddleCenter;
-		sendStyle.font = font1;
-		
+		GUIStyle sendStyle = new GUIStyle(GUI.skin.label);
 		GUIStyle gameStyle = new GUIStyle(GUI.skin.label);
-		gameStyle.fontSize =  Screen.width / 16;
-		gameStyle.font = font3;
-		gameStyle.wordWrap = false;
-		
 		GUIStyle pauseStyle = new GUIStyle(GUI.skin.label);
-		pauseStyle.fontSize =  Screen.width / 8;	
-		pauseStyle.alignment = TextAnchor.UpperCenter;
+		
+		// Set fonts
+		scoreStyle.font = font2;
+		menuStyle.font = font1;
+		timeStyle.font = font2;
+		sendStyle.font = font1;
+		gameStyle.font = font3;
 		pauseStyle.font = font1;
 		
-		GUI.Box(new Rect(-1.1f * Screen.width/ 16, 0, 1.1f * Screen.width, 1.5f * Screen.height / 24), "");
-		GUI.Label(ScaleUI.Score(), scoreText, scoreStyle);
-		GUI.Label(ScaleUI.Time(), timeText, timeStyle);
+		// Scale fonts
+		scoreStyle.fontSize =  Screen.width / menuScale;
+		menuStyle.fontSize =  Screen.width / menuScale;	
+		timeStyle.fontSize =  Screen.width / menuScale;
+		sendStyle.fontSize =  Screen.width / sendScale;
+		gameStyle.fontSize =  Screen.width / 16;
+		pauseStyle.fontSize =  Screen.width / 8;
 		
+		// Set alignments
+		scoreStyle.alignment = TextAnchor.UpperLeft;
+		menuStyle.alignment = TextAnchor.LowerCenter;
+		timeStyle.alignment = TextAnchor.UpperRight;
+		sendStyle.alignment = TextAnchor.MiddleCenter;
+		pauseStyle.alignment = TextAnchor.UpperCenter;
+		gameStyle.wordWrap = false;
+		
+		// Background boxes
+		GUI.Box(ScaleUI.TopBackground(), "");
+		GUI.Box(ScaleUI.BottomBackground(), "");
+		
+		// Score and time labels
+		GUI.Label(ScaleUI.Score(), rollingScore.ToString("000000"), scoreStyle);
+		GUI.Label(ScaleUI.Time(), gameTimer.ToString("00.00"), timeStyle);
+		
+		// Menu and send buttons
 		if (GUI.Button(ScaleUI.MenuButton(), "Menu", menuStyle))
 				Time.timeScale = (Time.timeScale == PAUSED) ? PLAYING : PAUSED;
+		if (GUI.Button(ScaleUI.SendButton(), "Send", sendStyle) && Time.timeScale == PLAYING)
+				fetchMessage = true;
 			
+		// Is the game paused?
 		if (Time.timeScale == PAUSED)
 		{
-			GUI.Box(new Rect(0, 0, Screen.width, Screen.height), "");
-
+			// Dim the screen.
+			GUI.Box(ScaleUI.PauseBackground(), "");
+			
+			// Display the "Resume" and "Quit" buttons.
+			// TODO: Add "Restart" button.
 			if (GUI.Button(ScaleUI.PauseButton1(), "Resume", pauseStyle)) 
 			{
 				Time.timeScale = PLAYING;
@@ -94,18 +130,45 @@ public class Game : MonoBehaviour
 		}
 		else
 		{
+			// Update the score to give it a "rolling" effect.
 			if (rollingScore < actualScore)
-				rollingScore += 4;
+				rollingScore += 5;
+			else if (rollingScore > actualScore)
+				rollingScore -= 5;
 			
-			MessageHandler mailMan = new MessageHandler();
-			ArrayList wordButtons = mailMan.NextMessage(messageList);
-			
-			foreach (Word word in wordButtons)
-				if(GUI.Button(word.button, word.ToString(), gameStyle))
-					actualScore += word.Press();
-			
-			if (GUI.Button(ScaleUI.SendButton(), "Send", sendStyle))
-				actualScore += 100;
+			// Iterate through every Word in the current message and
+			// draw it on the screen.
+			foreach (Word word in currentMessage)
+			{
+				// When a Word's button is pressed...
+				if (GUI.Button(word.button, word.ToString(), gameStyle))
+				{
+					// Ensure it hasn't been pressed before.
+					if (!word.pressed)
+					{
+						// If it is a flagged word, increment the current combo,
+						// reset the combo timer, add time to the clock, then add
+						// the appropriate amount of points to ther player's score.
+						if (word.flagged)
+						{
+							combo++;
+							comboTimer = 3;
+							bonusTime += 1.5f;
+							actualScore += combo * word.Press();
+						}
+						// If it's not a flagged word, end the current combo,
+						// remove time from the clock, then remove 100 points
+						// from the player's score.
+						else
+						{
+							combo = 0;
+							comboTimer = 0;
+							bonusTime -= 3;
+							actualScore += word.Press();	
+						}
+					}
+				}
+			}
 		}
 	}
 }

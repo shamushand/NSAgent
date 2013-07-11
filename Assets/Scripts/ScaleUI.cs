@@ -3,6 +3,7 @@ using System.Collections;
 
 public class ScaleUI
 {
+	static float maxChars = 24;	// Maximum number of characters per line.
 	static float xScale = 16;	// Number of units the width of the screen is divided into.
 	static float yScale = 24;	// Number of units the height of the screen is divided into.
 	
@@ -22,6 +23,7 @@ public class ScaleUI
 		offsetY  = 9f * Screen.height / yScale;
 		width = 12f * Screen.width / xScale;
 		height = 2.5f * Screen.height / yScale;	
+		
 		return new Rect(offsetX, offsetY, width, height);
 	}
 	
@@ -34,6 +36,7 @@ public class ScaleUI
 		offsetY  = 12.5f * Screen.height / yScale;
 		width = 12f * Screen.width / xScale;
 		height = 2.5f * Screen.height / yScale;	
+		
 		return new Rect(offsetX, offsetY, width, height);
 	}
 	
@@ -46,6 +49,7 @@ public class ScaleUI
 		offsetY  = 16f * Screen.height / yScale;
 		width = 12f * Screen.width / xScale;
 		height = 2.5f * Screen.height / yScale;	
+		
 		return new Rect(offsetX, offsetY, width, height);
 	}
 	
@@ -58,6 +62,7 @@ public class ScaleUI
 		offsetY  = 19.5f * Screen.height / yScale;
 		width = 12f * Screen.width / xScale;
 		height = 2.5f * Screen.height / yScale;	
+		
 		return new Rect(offsetX, offsetY, width, height);
 	}
 	
@@ -70,10 +75,28 @@ public class ScaleUI
 		offsetY = 8f * Screen.height / yScale;
 		width = 14f * Screen.width / xScale;
 		height = 15f * Screen.height / yScale;
+		
 		return new Rect(offsetX, offsetY, width, height);
 	}	
 	
 	// Game UI
+	
+	/// <summary>
+	/// Creates a button using information about word placement.
+	/// </summary>
+	public static Rect MakeButton(int line, int character, int length)
+	{
+		float start = Screen.width / xScale;
+		float end = 15 * Screen.width / xScale;
+		float size = end - start;
+		
+		offsetX = start + character * size / maxChars;
+		offsetY = (1.5f * line + 4) * Screen.height / yScale;
+		width = length * size / maxChars;
+		height = 1.45f * Screen.height / yScale;
+		
+		return new Rect(offsetX, offsetY, width, height);
+	}
 	
 	/// <summary>
 	/// The Score label in the game UI.
@@ -84,6 +107,7 @@ public class ScaleUI
 		offsetY = Screen.height / (4 * yScale);
 		width = 5f * Screen.width / xScale;
 		height = Screen.height / yScale;
+		
 		return new Rect(offsetX, offsetY, width, height);	
 	}
 	
@@ -96,6 +120,7 @@ public class ScaleUI
 		offsetY = Screen.height / (4 * yScale);
 		width = 5f * Screen.width / xScale;
 		height = Screen.height / yScale;
+		
 		return new Rect(offsetX, offsetY, width, height);	
 	}
 	
@@ -108,6 +133,7 @@ public class ScaleUI
 		offsetY = Screen.height / (4 * yScale);
 		width = 3 * Screen.width / xScale;
 		height = Screen.height / yScale;
+		
 		return new Rect(offsetX, offsetY, width, height);
 	}
 	
@@ -116,10 +142,11 @@ public class ScaleUI
 	/// </summary>
 	public static Rect SendButton()
 	{
-		offsetX = Screen.width / xScale;
+		offsetX = -1.3f * Screen.width / xScale;
 		offsetY = 20 * Screen.height / yScale;
-		width = 14 * Screen.width / xScale;
+		width = 18 * Screen.width / xScale;
 		height = 3 * Screen.height / yScale;
+		
 		return new Rect(offsetX, offsetY, width, height);
 	}
 	
@@ -132,6 +159,7 @@ public class ScaleUI
 		offsetY  = 8f * Screen.height / yScale;
 		width = 12f * Screen.width / xScale;
 		height = 3f * Screen.height / yScale;
+		
 		return new Rect(offsetX, offsetY, width, height);
 	}
 	
@@ -144,23 +172,46 @@ public class ScaleUI
 		offsetY  = 13.5f * Screen.height / yScale;
 		width = 12f * Screen.width / xScale;
 		height = 3f * Screen.height / yScale;
+		
 		return new Rect(offsetX, offsetY, width, height);
 	}
 	
 	/// <summary>
-	/// Creates a button using information about word placement.
+	/// The background for the top of the game UI.
 	/// </summary>
-	public static Rect MakeButton(int line, int character, int length)
+	public static Rect TopBackground()
 	{
-		float start = Screen.width / xScale;
-		float end = 15 * Screen.width / xScale;
-		float size = end - start;
-		
-		offsetX = start + character * size / 24;
-		offsetY = (4 + 1.5f * line) * Screen.height / yScale;
-		width = length * size / 24;
-		height = 1.45f * Screen.height / yScale;
+		offsetX = -1.1f * Screen.width / xScale;
+		offsetY  = 0;
+		width = 1.1f * Screen.width;
+		height = 1.5f * Screen.height / yScale;	
 		
 		return new Rect(offsetX, offsetY, width, height);
+	}
+	
+	/// <summary>
+	/// The background for the bottom of the game UI.
+	/// </summary>
+	public static Rect BottomBackground()
+	{
+		offsetX = -1.1f * Screen.width / xScale;
+		offsetY  = 19 * Screen.height / yScale;
+		width = 1.1f * Screen.width;
+		height = 10f * Screen.height / yScale;	
+		
+		return new Rect(offsetX, offsetY, width, height);	
+	}
+	
+	/// <summary>
+	/// The background for the pause menu.
+	/// </summary>
+	public static Rect PauseBackground()
+	{
+		offsetX = 0;
+		offsetY  = 0;
+		width = Screen.width;
+		height = Screen.height;	
+		
+		return new Rect(offsetX, offsetY, width, height);	
 	}
 }

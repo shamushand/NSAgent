@@ -12,26 +12,33 @@ public class Word
 	{
 		this.word = word;
 		button = ScaleUI.MakeButton(line, position, word.Length + 1);
-		flagged = FlagCheck(word);
+		flagged = IsFlagged(word);
 		pressed = false;
 	}
 	
+	// Called when the word is pressed. Registers the word as pressed,
+	// then returns 100 if the word is flagged, or -100 if it is not.
 	public int Press()
 	{
-		if (pressed)
-			return 0;
+		pressed = true;
+		
+		if (flagged)
+			return 100;
 		else
-		{
-			if (flagged)
-				return 100;
-			else
-				return -100;
-		}
+			return -100;
 	}
 	
-	bool FlagCheck(string word)
+	// Takes in a string and returns whether it contains one of the
+	// words in the flagged word bank.
+	bool IsFlagged(string word)
 	{
-		return true;
+		bool isFlagged = false;
+		
+		foreach (string flaggedWord in Strings.WordBank())
+			if (word.ToLower().Contains(flaggedWord.ToLower()))
+				isFlagged = true;
+		
+		return isFlagged;
 	}
 	
 	public override string ToString()
