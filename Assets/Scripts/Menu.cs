@@ -9,7 +9,7 @@ public class Menu : MonoBehaviour
 	float subtitleScale = 10f;	// Coefficient of subtitle font size to screen width.
 	int menuScale = 10;			// Coefficient of menu font size to screen width.
 	
-	public Font munro;
+	public Font font;
 	
 	// Called just before any of the Update methods is called the first time.
 	void Start()
@@ -41,7 +41,7 @@ public class Menu : MonoBehaviour
 		// http://answers.unity3d.com/questions/344493/change-font-size-through-script.html
 		GUIStyle scaled = new GUIStyle(GUI.skin.button);
 		scaled.fontSize = Screen.width / menuScale;
-		scaled.font = munro;
+		scaled.font = font;
 		
 		if (GUI.Button(ScaleUI.MenuButton1(), "Start", scaled)) 
 		{

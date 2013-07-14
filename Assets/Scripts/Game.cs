@@ -21,6 +21,16 @@ public class Game : MonoBehaviour
 	{
 		bonusTime = 15;
 		fetchMessage = true;
+		StartCoroutine(Tick());
+	}
+	
+	IEnumerator Tick()
+	{
+		while (!gameOver)
+		{
+			audio.Play();
+			yield return new WaitForSeconds(1f);
+		}
 	}
 	
 	// Called once per frame.
@@ -33,6 +43,7 @@ public class Game : MonoBehaviour
 			// TODO: Score screen.
 			gameTimer = 0;
 			gameOver = true;
+			PlayerPrefs.SetInt("Highscore", actualScore);
 		}
 		
 		// Decrement the combo timer and check if the combo has ended.
@@ -51,9 +62,6 @@ public class Game : MonoBehaviour
 	const int PLAYING = 1;		// TimeScale constant for when the game is running.
 	const int PAUSED = 0;		// TimeScale constant for when the game is paused. 
 	
-	int menuScale = 20;			// Coefficient of menu button font size to screen width. 
-	int sendScale = 5;			// Coefficient of send button font size to screen width.
-	
 	public Font font1;			// Orbitron
 	public Font font2;			// Digital Dream	
 	public Font font3;			// Courier Bold
@@ -64,7 +72,7 @@ public class Game : MonoBehaviour
 	void OnGUI()
 	{
 		// Set GUI skin and initialize GUIStyles
-		GUI.skin = customSkin;
+		//GUI.skin = customSkin;
 		GUIStyle scoreStyle = new GUIStyle(GUI.skin.label);
 		GUIStyle menuStyle = new GUIStyle(GUI.skin.label);
 		GUIStyle timeStyle = new GUIStyle(GUI.skin.label);
@@ -81,12 +89,12 @@ public class Game : MonoBehaviour
 		pauseStyle.font = font1;
 		
 		// Scale fonts
-		scoreStyle.fontSize =  Screen.width / menuScale;
-		menuStyle.fontSize =  Screen.width / menuScale;	
-		timeStyle.fontSize =  Screen.width / menuScale;
-		sendStyle.fontSize =  Screen.width / sendScale;
-		gameStyle.fontSize =  Screen.width / 16;
-		pauseStyle.fontSize =  Screen.width / 8;
+		scoreStyle.fontSize =  Screen.width / 40;
+		menuStyle.fontSize =  Screen.width / 40;	
+		timeStyle.fontSize =  Screen.width / 40;
+		sendStyle.fontSize =  Screen.width / 36;
+		gameStyle.fontSize =  Screen.width / 28;
+		pauseStyle.fontSize =  Screen.width / 16;
 		
 		// Set alignments
 		scoreStyle.alignment = TextAnchor.UpperLeft;
@@ -122,7 +130,12 @@ public class Game : MonoBehaviour
 			{
 				Time.timeScale = PLAYING;
 			}
-			if (GUI.Button(ScaleUI.PauseButton2(), "Quit", pauseStyle)) 
+			if (GUI.Button(ScaleUI.PauseButton2(), "Restart", pauseStyle)) 
+			{
+				Time.timeScale = PLAYING;
+				Application.LoadLevel("Game Start");
+			}	
+			if (GUI.Button(ScaleUI.PauseButton3(), "Quit", pauseStyle)) 
 			{
 				Time.timeScale = PLAYING;
 				Application.LoadLevel("Main Menu");
@@ -153,7 +166,7 @@ public class Game : MonoBehaviour
 						{
 							combo++;
 							comboTimer = 3;
-							bonusTime += 1.5f;
+							bonusTime += 2f;
 							actualScore += combo * word.Press();
 						}
 						// If it's not a flagged word, end the current combo,

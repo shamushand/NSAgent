@@ -3,7 +3,7 @@ using System.Collections;
 
 public class GHNB : MonoBehaviour 
 {	
-	float fontScale = 5.75f;	// Coefficient for font size to screen width.
+	float fontScale = 5.75f;	// Coefficient of font size to screen width.
 	
 	// Called just before any of the Update methods is called the first time.
 	void Start() 
@@ -12,7 +12,7 @@ public class GHNB : MonoBehaviour
 		GameObject line2 = GameObject.Find("Line 2");
 		GameObject line3 = GameObject.Find("Line 3");
 		
-		line1.GetComponent<GUIText>().guiText.fontSize = (int) Mathf.Floor(Screen.width / fontScale);
+		line1.GetComponent<GUIText>().guiText.fontSize = (int) Mathf.Floor(Screen.width/ fontScale);
 		line2.GetComponent<GUIText>().guiText.fontSize = (int) Mathf.Floor(Screen.width / fontScale);
 		line3.GetComponent<GUIText>().guiText.fontSize = (int) Mathf.Floor(Screen.width / fontScale);
 		

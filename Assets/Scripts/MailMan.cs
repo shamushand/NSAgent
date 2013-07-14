@@ -12,13 +12,13 @@ public static class MailMan
 		// Split the file into an array of strings, each containing one message.
 		string[] messages = Strings.Messages();
 		
-		
 		// Find a new, unused message at random.
 		int next = Random.Range(0, messages.Length);
 		while (usedMessages[next])
 			next = Random.Range(0, messages.Length);
-		usedMessages[next] = true;
 		
+		// Mark the message as used and return it.
+		usedMessages[next] = true;		
 		return ButtonFactory(messages[next]);
 	}
 	
@@ -29,7 +29,7 @@ public static class MailMan
 		int position = 0;		// Number of characters in the current line, spaces included.
 		int currentWord = 0;	// Number of words in the current line.
 		int currentLine = 0;	// Number of lines in the current message.
-		int lineLength = 24;	// The maximum number of characters allowed each lines.
+		int lineLength = 28;	// The maximum number of characters allowed each lines.
 		
 		// Initialize a 2D array of strings.
 		string[][] wrapped = new string[10][];

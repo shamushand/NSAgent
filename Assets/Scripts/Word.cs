@@ -11,7 +11,7 @@ public class Word
 	public Word(string word, int line, int position)
 	{
 		this.word = word;
-		button = ScaleUI.MakeButton(line, position, word.Length + 1);
+		button = ScaleUI.MakeButton(line, position, word.Length);
 		flagged = IsFlagged(word);
 		pressed = false;
 	}
