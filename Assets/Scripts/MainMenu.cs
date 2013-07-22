@@ -3,23 +3,14 @@ using System.Collections;
 
 public class MainMenu : MonoBehaviour 
 {
-	Vector3 startPosition;	// Camera's initial position (on menu).
 	Vector3 endPosition;	// Camera's final position (on game start).
 	
 	float totalSteps;		// Number of frames to draw when zooming into screen.
-	float xDiff;			// Amount to increment camera's X coordinate this frame.
-	float yDiff;			// Amount to increment camera's Y coordinate this frame.
-	float zDiff;			// Amount to increment camera's Z coordinate this frame.
 
 	void Awake() 
 	{
-		startPosition = camera.transform.position;
-		endPosition = new Vector3(-1.5f, 3.75f, 8);
-		totalSteps = 100;
+		totalSteps = 200;
 		
-		xDiff = (endPosition.x - startPosition.x) / totalSteps;
-		yDiff = (endPosition.y - startPosition.y) / totalSteps;
-		zDiff = (endPosition.z - startPosition.z) / totalSteps;
 	}
 	
 	public Font menuFont;	// Font used for menu buttons.
@@ -66,15 +57,15 @@ public class MainMenu : MonoBehaviour
 			}
 			if (GUI.Button(ScaleUI.MenuButton2(), "Word Bank", button)) 
 			{
-				Application.LoadLevel("Word Bank");
+				StartCoroutine (WordBank ());
 			}	
 			if (GUI.Button(ScaleUI.MenuButton3(), "Settings", button)) 
 			{
 				Application.LoadLevel("Main Menu");
 			}
-			if (GUI.Button(ScaleUI.MenuButton4(), "Credits", button)) 
+			if (GUI.Button(ScaleUI.MenuButton4(), "High Score", button)) 
 			{
-				Application.LoadLevel("Credits");
+				StartCoroutine(HighScore ());
 			}
 		}
 	}
@@ -82,16 +73,40 @@ public class MainMenu : MonoBehaviour
 	IEnumerator StartGame()
 	{
 		CameraFade fader = GetComponent<CameraFade>();
-		fader.StartFade(Color.black, 4f);
+		fader.StartFade(Color.black, 7f);
 		
+		endPosition = new Vector3(-1.5f, 3.75f, 8);
 		for(int step = 0; step < totalSteps; step++)
 		{
-			audio.volume = (float) (100 - step) / totalSteps;
-			camera.transform.position = new Vector3(camera.transform.position.x + xDiff,
-													camera.transform.position.y + yDiff,
-													camera.transform.position.z + zDiff);
+			audio.volume = (float) (totalSteps - step) / totalSteps;
+			camera.transform.position = Vector3.Lerp(camera.transform.position, endPosition, Time.deltaTime);
+			camera.transform.rotation = Quaternion.Lerp (camera.transform.rotation, Quaternion.Euler(0, 0, 0), Time.deltaTime);
 			yield return new WaitForSeconds(Time.deltaTime);
 		}
 		Application.LoadLevel("Game Start");
+	}
+	
+	IEnumerator WordBank()
+	{
+		endPosition = new Vector3(-3.3f, 4.4f, 6.2f);
+		
+		for(int step = 0; step < totalSteps; step++)
+		{
+			camera.transform.position = Vector3.Lerp(camera.transform.position, endPosition, Time.deltaTime);
+			camera.transform.rotation = Quaternion.Lerp (camera.transform.rotation, Quaternion.Euler(0, -90, 0), Time.deltaTime);
+			yield return new WaitForSeconds(Time.deltaTime);
+		}
+	}
+	
+	IEnumerator HighScore()
+	{
+		endPosition = new Vector3(3.8f, 4.4f, 6.2f);
+		
+		for(int step = 0; step < totalSteps; step++)
+		{
+			camera.transform.position = Vector3.Lerp (camera.transform.position, endPosition, Time.deltaTime);
+			camera.transform.rotation = Quaternion.Lerp (camera.transform.rotation, Quaternion.Euler(0, 90, 0), Time.deltaTime);
+			yield return new WaitForSeconds(Time.deltaTime);
+		}
 	}
 }
