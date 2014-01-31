@@ -8,27 +8,22 @@ public static class Strings
 	
 	static string messages = @"The quick brown bomb fox jumps over the radioactive lazy dog.
 That storm last week man, it was crazy! Please expect some power outages until the authorities resolve the matter.
-So I was doing bgs yesterday and this hacker totally DDOS'ed me! Blizzard needs to get their shit together.
 Don't forget, tomorrow is talk like a pirate day! If you need help, just call me.
 Great. So my flight was cancelled because the airport is snowed in, I blame this stupid storm.
 The quick brown bomb fox jumps over the radioactive lazy dog.
 That storm last week man, it was crazy! Please expect some power outages until the authorities resolve the matter.
-So I was doing bgs yesterday and this hacker totally DDOS'ed me! Blizzard needs to get their shit together.
 Don't forget, tomorrow is talk like a pirate day! If you need help, just call me.
 Great. So my flight was cancelled because the airport is snowed in, I blame this stupid storm.
 The quick brown bomb fox jumps over the radioactive lazy dog.
 That storm last week man, it was crazy! Please expect some power outages until the authorities resolve the matter.
-So I was doing bgs yesterday and this hacker totally DDOS'ed me! Blizzard needs to get their shit together.
 Don't forget, tomorrow is talk like a pirate day! If you need help, just call me.
 Great. So my flight was cancelled because the airport is snowed in, I blame this stupid storm.
 The quick brown bomb fox jumps over the radioactive lazy dog.
 That storm last week man, it was crazy! Please expect some power outages until the authorities resolve the matter.
-So I was doing bgs yesterday and this hacker totally DDOS'ed me! Blizzard needs to get their shit together.
 Don't forget, tomorrow is talk like a pirate day! If you need help, just call me.
 Great. So my flight was cancelled because the airport is snowed in, I blame this stupid storm.
 The quick brown bomb fox jumps over the radioactive lazy dog.
 That storm last week man, it was crazy! Please expect some power outages until the authorities resolve the matter.
-So I was doing bgs yesterday and this hacker totally DDOS'ed me! Blizzard needs to get their shit together.
 Don't forget, tomorrow is talk like a pirate day! If you need help, just call me.
 Great. So my flight was cancelled because the airport is snowed in, I blame this stupid storm.";
 	

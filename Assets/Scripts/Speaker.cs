@@ -18,7 +18,5 @@ public class Speaker : MonoBehaviour {
 		currentSize = new Vector3(0.15f + (0.05f * difference), 0.1f,
 								  0.15f + (0.05f * difference));
 		transform.localScale = currentSize;
-		
-		
 	}
 }

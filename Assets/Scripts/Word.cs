@@ -35,8 +35,8 @@ public class Word
 		bool isFlagged = false;
 		
 		foreach (string flaggedWord in Strings.WordBank())
-			if (word.ToLower().Contains(flaggedWord.ToLower()))
-				isFlagged = true;
+						if (word.ToLower ().Contains (flaggedWord.ToLower ()))
+								isFlagged = true;
 		
 		return isFlagged;
 	}

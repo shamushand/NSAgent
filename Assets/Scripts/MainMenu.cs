@@ -3,14 +3,11 @@ using System.Collections;
 
 public class MainMenu : MonoBehaviour 
 {
-	Vector3 endPosition;	// Camera's final position (on game start).
-	
 	float totalSteps;		// Number of frames to draw when zooming into screen.
 
 	void Awake() 
 	{
 		totalSteps = 200;
-		
 	}
 	
 	public Font menuFont;	// Font used for menu buttons.
@@ -69,6 +66,8 @@ public class MainMenu : MonoBehaviour
 			}
 		}
 	}
+
+	Vector3 endPosition;	// Camera's final position (on game start).
 	
 	IEnumerator StartGame()
 	{

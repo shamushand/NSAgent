@@ -1,20 +1,16 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/MainMenu.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Strings.cs">
     <Files>
-      <File FileName="Assets/Scripts/MainMenu.cs" Line="89" Column="24" />
-      <File FileName="Assets/Scripts/Speaker.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/ScaleUI.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/CameraFade.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Strings.cs" Line="26" Column="115" />
+      <File FileName="Assets\Scripts\Game.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="Assembly-CSharp" expanded="True">
-            <Node name="Assets" expanded="True">
-              <Node name="Scripts" expanded="True">
-                <Node name="MainMenu.cs" selected="True" />
-              </Node>
+            <Node name="Scripts" expanded="True">
+              <Node name="Strings.cs" selected="True" />
             </Node>
           </Node>
         </State>
